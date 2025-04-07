@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Exceptions;
 using MyRecipeBook.Exceptions.ExceptionBase;
-using System;
 using System.Net;
 
 namespace MyRecipeBook.API.Filters
