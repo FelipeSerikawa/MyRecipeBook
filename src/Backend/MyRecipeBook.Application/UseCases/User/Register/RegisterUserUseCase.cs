@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MyRecipeBook.Application.Services.AutoMapper;
+using MyRecipeBook.Application.Services.Cryptography;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 using MyRecipeBook.Exceptions.ExceptionBase;
@@ -10,6 +11,7 @@ namespace MyRecipeBook.Application.UseCases.User.Register
     {
         public ResponseRegisteredUserJson Execute(RequestRegisterUserJson request)
         {
+            var passwordEncryption = new PasswordEncripter();
             Validate(request);
 
             var autoMapper = new MapperConfiguration(options =>
@@ -18,6 +20,8 @@ namespace MyRecipeBook.Application.UseCases.User.Register
             }).CreateMapper();
 
             var user = autoMapper.Map<Domain.Entities.User>(request);
+
+            user.Password = passwordEncryption.Encrypt(request.Password);
 
             return new ResponseRegisteredUserJson
             {
